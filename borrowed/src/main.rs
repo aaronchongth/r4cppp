@@ -73,8 +73,54 @@ fn foo2() {
     bar_mut(xr); // ok
 }
 
+fn test_immutability() {
+    let x = 5;
+    let immut_x = &x;
+    // let mut_x = &mut x; // this is an error, makes sense
+    println!("run test_immutability");
+
+    let mut y = 6;
+    let immut_y = &y;
+    // *immut_y = 7; // this is an error, cannot dereference and write
+    println!("printing dereference immut_y: {}", *immut_y);
+
+    let mut_y = &mut y; // this should not be allowed since immut_y has already
+    // borrowed
+    *mut_y = 7;
+    // println!("printing dereference mut and immut: {}, {}", *mut_y, *immut_y);
+    // using mut_y in any way makes it call the error that we are borrowing
+    // mutable y while an immutable borrow of y has already occurred.
+}
+
+fn test_borrowing_mut() {
+    let mut x = 5;
+    {
+        let y = &x; // borrowed
+        // x = 4; // Error, x has been borrowed
+        // println!("y is {}", y); // the line above is compiled only when it is
+        // used.
+        println!("{}", x);
+    }
+    x = 6;
+}
+
+fn test_borrow_go_out_of_scope() {
+    let mut x = 5;
+    {
+        let y = &mut x;
+        println!("y is {}", *y);
+        x = 4;
+        println!("{}", x);
+    }
+    x = 4;
+    println!("{}", x);
+}
+
 fn main() {
     println!("Hello, world!");
     foo();
     foo2();
+    test_immutability();
+    test_borrowing_mut();
+    test_borrow_go_out_of_scope();
 }
