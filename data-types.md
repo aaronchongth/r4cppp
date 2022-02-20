@@ -41,7 +41,7 @@ fn foo(s1: S, s2: &S) {
 ```
 
 Here `s1` is struct object passed by value and `s2` is a struct object passed by
-reference. As with method call, we use the same `.` to access fields in both, no
+reference. As with method calls, we use the same `.` to access fields in both, no
 need for `->`.
 
 Structs are initialised using struct literals. These are the name of the struct
@@ -195,7 +195,7 @@ One particularly common enum in Rust is `Option`. This has two variants - `Some`
 and `None`. `None` has no data and `Some` has a single field with type `T`
 (`Option` is a generic enum, which we will cover later, but hopefully the
 general idea is clear from C++). Options are used to indicate a value might be
-there or might not. Any place you use a null pointer in C++<sup>[2](#2)</sup>.
+there or might not. Any place you use a null pointer in C++<sup>[2](#2)</sup>
 to indicate a value which is in some way undefined, uninitialised, or false,
 you should probably use an Option in Rust. Using Option is safer because you
 must always check it before use; there is no way to do the equivalent of
